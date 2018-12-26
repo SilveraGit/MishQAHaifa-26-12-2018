@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * Created by Inka on 23-Dec-18.
@@ -13,23 +14,40 @@ public class HomePageHelper extends PageBase{
         super(driver);
     }
 
+    @FindBy(xpath = "//span[contains(text(),'Login')]")
+    WebElement loginButton;
+
+    @FindBy(xpath = "//span[contains(text(),'Create Account')]")
+    WebElement createAccountButton;
+
+    @FindBy (className = "mat-stroked-button")
+    WebElement goToEventButton;
+
+
     public void waitUntilPageLoad() {
         waitUntilElementIsLoaded(driver,
-                By.xpath("//span[contains(text(),'Login')]"),
+                loginButton,
                 45);
         waitUntilElementIsLoaded(driver,
-                By.xpath("//span[contains(text(),'Create Account')]"),40);
+                createAccountButton,
+                45);
     }
 
     public String getGoToEventButtonName() {
-        WebElement goToEventsButton = driver.findElement(
-                By.className("mat-stroked-button"));
-        return goToEventsButton.getText();
+
+        return goToEventButton.getText();
     }
 
     public void pressGoToEventButton() {
-        WebElement goToEventsButton = driver.findElement(
-                By.className("mat-stroked-button"));
-        goToEventsButton.click();
+
+        goToEventButton.click();
+    }
+
+    public void pressLoginButton() {
+        waitUntilElementIsLoaded(driver,
+                loginButton,
+                45);
+
+        loginButton.click();
     }
 }
